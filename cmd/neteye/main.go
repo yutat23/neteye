@@ -410,3 +410,18 @@ func logError(operation, message, code string, err error) {
 	output, _ := json.Marshal(logEntry)
 	fmt.Fprintf(os.Stderr, "%s\n", output)
 }
+
+func parseInt(s string) (int, error) {
+	if s == "" {
+		return 0, fmt.Errorf("empty string")
+	}
+
+	var result int
+	for _, r := range s {
+		if r < '0' || r > '9' {
+			return 0, fmt.Errorf("invalid integer: %s", s)
+		}
+		result = result*10 + int(r-'0')
+	}
+	return result, nil
+}
