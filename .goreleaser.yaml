@@ -1,0 +1,138 @@
+# GoReleaser configuration for neteye
+project_name: neteye
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - 6
+      - 7
+    ignore:
+      - goos: windows
+        goarch: arm64
+    main: ./cmd/neteye
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+    binary: neteye
+
+archives:
+  - format: tar.gz
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+      - configs/neteye.example.yaml
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+release:
+  github:
+    owner: example
+    name: neteye
+  draft: false
+  prerelease: auto
+  name_template: "Release {{.Tag}}"
+  header: |
+    ## neteye {{.Tag}}
+    
+    Network connection investigation and monitoring tool.
+    
+    ### Installation
+    
+    Download the appropriate binary for your platform from the assets below.
+    
+  footer: |
+    ## Docker
+    
+    ```bash
+    docker run --rm ghcr.io/example/neteye:{{.Tag}} version
+    ```
+    
+    **Full Changelog**: https://github.com/example/neteye/compare/{{.PreviousTag}}...{{.Tag}}
+
+dockers:
+  - image_templates:
+      - "ghcr.io/example/neteye:latest"
+      - "ghcr.io/example/neteye:{{ .Tag }}"
+      - "ghcr.io/example/neteye:v{{ .Major }}"
+      - "ghcr.io/example/neteye:v{{ .Major }}.{{ .Minor }}"
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - --platform=linux/amd64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description=Network connection investigation and monitoring tool
+      - --label=org.opencontainers.image.url=https://github.com/example/neteye
+      - --label=org.opencontainers.image.source=https://github.com/example/neteye
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
+
+brews:
+  - name: neteye
+    repository:
+      owner: example
+      name: homebrew-tools
+    folder: Formula
+    homepage: https://github.com/example/neteye
+    description: Network connection investigation and monitoring tool
+    license: MIT
+    test: |
+      system "#{bin}/neteye", "version"
+    install: |
+      bin.install "neteye"
+
+nfpms:
+  - file_name_template: '{{ .ConventionalFileName }}'
+    id: packages
+    homepage: https://github.com/example/neteye
+    description: Network connection investigation and monitoring tool
+    maintainer: Your Name <your.email@example.com>
+    license: MIT
+    vendor: Example Corp
+    bindir: /usr/bin
+    section: utils
+    contents:
+      - src: ./configs/neteye.example.yaml
+        dst: /etc/neteye/neteye.example.yaml
+        type: config
+    formats:
+      - deb
+      - rpm

@@ -1,0 +1,36 @@
+# neteye configuration file example
+# Copy this file to ~/.config/neteye/config.yaml or specify with --config flag
+
+# Global settings
+global:
+  format: table                # Output format: table|json|csv
+  no_color: false             # Disable ANSI colors
+  resolve: false              # Resolve IPs to hostnames by default
+  sort_by: proto              # Default sort key: proto|local|remote|state|pid|proc
+  log_level: error            # Log level: debug|info|warn|error
+
+# Collection settings
+collect:
+  pid: 0                      # Filter by process ID (0 = all)
+  remote_host: ""             # Filter by remote host (empty = all)
+  proto: ""                   # Filter by protocol: tcp|udp (empty = both)
+  listen_only: false          # Show only listening connections
+  resolve: false              # Resolve remote IPs to hostnames
+
+# Watch settings
+watch:
+  port: 0                     # Port to monitor (0 = all ports)
+  interval: 500ms             # Check interval
+  duration: 0s                # Maximum watch duration (0 = infinite)
+  quiet: false                # Suppress output except for changes
+
+# Map settings
+map:
+  graph_format: json          # Graph format: json|dot
+  collapse_ports: false       # Group connections by IP only
+  resolve: false              # Resolve IPs to hostnames
+
+# DNS cache settings
+dns_cache:
+  ttl: 5m                     # Cache entry TTL
+  max_size: 1000              # Maximum cache entries
