@@ -9,8 +9,8 @@
 ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝
 ```
 
-[![CI](https://github.com/yutat23neteye/workflows/CI/badge.svg)](https://github.com/yutat23neteye/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/yutat23neteye)](https://goreportcard.com/report/github.com/yutat23neteye)
+[![CI](https://github.com/yutat23/neteye/workflows/CI/badge.svg)](https://github.com/yutat23/neteye/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yutat23/neteye)](https://goreportcard.com/report/github.com/yutat23/neteye)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A robust cross-platform CLI tool for network connection investigation and monitoring that provides **simple**, **fast**, and **visualizable** network analysis.
@@ -29,22 +29,22 @@ A robust cross-platform CLI tool for network connection investigation and monito
 
 ### From Releases
 
-Download the appropriate binary for your platform from [Releases](https://github.com/yutat23neteye/releases):
+Download the appropriate binary for your platform from [Releases](https://github.com/yutat23/neteye/releases):
 
 ```bash
 # Linux/macOS
-curl -fsSL https://github.com/yutat23neteye/releases/latest/download/neteye-linux-amd64.tar.gz | tar -xz
+curl -fsSL https://github.com/yutat23/neteye/releases/latest/download/neteye-linux-amd64.tar.gz | tar -xz
 sudo mv neteye /usr/local/bin/
 
 # Windows (PowerShell)
-Invoke-WebRequest -Uri "https://github.com/yutat23neteye/releases/latest/download/neteye-windows-amd64.zip" -OutFile "neteye.zip"
+Invoke-WebRequest -Uri "https://github.com/yutat23/neteye/releases/latest/download/neteye-windows-amd64.zip" -OutFile "neteye.zip"
 Expand-Archive -Path "neteye.zip" -DestinationPath "."
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/yutat23neteye
+git clone https://github.com/yutat23/neteye
 cd neteye
 go build -o neteye ./cmd/neteye
 ```
@@ -52,7 +52,7 @@ go build -o neteye ./cmd/neteye
 ### Using Go Install
 
 ```bash
-go install github.com/yutat23neteye/cmd/neteye@latest
+go install github.com/yutat23/neteye/cmd/neteye@latest
 ```
 
 ## Usage
@@ -214,7 +214,7 @@ Configuration file locations (in order of precedence):
 
 ```bash
 # Clone the repository
-git clone https://github.com/yutat23neteye
+git clone https://github.com/yutat23/neteye
 cd neteye
 
 # Download dependencies
