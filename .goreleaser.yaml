@@ -82,24 +82,24 @@ release:
     ## Docker
     
     ```bash
-    docker run --rm ghcr.io/example/neteye:{{.Tag}} version
+    docker run --rm ghcr.io/yutat23/neteye:{{.Tag}} version
     ```
     
-    **Full Changelog**: https://github.com/example/neteye/compare/{{.PreviousTag}}...{{.Tag}}
+    **Full Changelog**: https://github.com/yutat23/neteye/compare/{{.PreviousTag}}...{{.Tag}}
 
 dockers:
   - image_templates:
-      - "ghcr.io/example/neteye:latest"
-      - "ghcr.io/example/neteye:{{ .Tag }}"
-      - "ghcr.io/example/neteye:v{{ .Major }}"
-      - "ghcr.io/example/neteye:v{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/yutat23/neteye:latest"
+      - "ghcr.io/yutat23/neteye:{{ .Tag }}"
+      - "ghcr.io/yutat23/neteye:v{{ .Major }}"
+      - "ghcr.io/yutat23/neteye:v{{ .Major }}.{{ .Minor }}"
     dockerfile: Dockerfile
     build_flag_templates:
       - --platform=linux/amd64
       - --label=org.opencontainers.image.title={{ .ProjectName }}
       - --label=org.opencontainers.image.description=Network connection investigation and monitoring tool
-      - --label=org.opencontainers.image.url=https://github.com/example/neteye
-      - --label=org.opencontainers.image.source=https://github.com/example/neteye
+      - --label=org.opencontainers.image.url=https://github.com/yutat23/neteye
+      - --label=org.opencontainers.image.source=https://github.com/yutat23/neteye
       - --label=org.opencontainers.image.version={{ .Version }}
       - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
@@ -111,7 +111,7 @@ brews:
       owner: example
       name: homebrew-tools
     folder: Formula
-    homepage: https://github.com/example/neteye
+    homepage: https://github.com/yutat23/neteye
     description: Network connection investigation and monitoring tool
     license: MIT
     test: |
@@ -122,7 +122,7 @@ brews:
 nfpms:
   - file_name_template: '{{ .ConventionalFileName }}'
     id: packages
-    homepage: https://github.com/example/neteye
+    homepage: https://github.com/yutat23/neteye
     description: Network connection investigation and monitoring tool
     maintainer: Your Name <your.email@example.com>
     license: MIT
