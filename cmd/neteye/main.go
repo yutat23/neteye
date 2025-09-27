@@ -28,6 +28,14 @@ var (
 	globalResolve  = false
 	globalSortBy   = "proto"
 	globalLogLevel = "error"
+
+	// ASCII art logo
+	logo = `███╗   ██╗███████╗████████╗███████╗██╗   ██╗███████╗
+████╗  ██║██╔════╝╚══██╔══╝██╔════╝╚██╗ ██╔╝██╔════╝
+██╔██╗ ██║█████╗     ██║   █████╗   ╚████╔╝ █████╗  
+██║╚██╗██║██╔══╝     ██║   ██╔══╝    ╚██╔╝  ██╔══╝  
+██║ ╚████║███████╗   ██║   ███████╗   ██║   ███████╗
+╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝`
 )
 
 func main() {
@@ -50,6 +58,9 @@ It provides simple, fast, and visualizable network connection analysis.`,
 		},
 	}
 
+	// Set custom usage template with logo
+	cmd.SetUsageTemplate(getUsageTemplate())
+
 	// Add global flags
 	cmd.PersistentFlags().StringVar(&globalFormat, "format", "table", "Output format: table|json|csv")
 	cmd.PersistentFlags().BoolVar(&globalNoColor, "no-color", false, "Disable ANSI colors")
@@ -64,6 +75,51 @@ It provides simple, fast, and visualizable network connection analysis.`,
 	return cmd
 }
 
+// getUsageTemplate returns a custom usage template with logo
+func getUsageTemplate() string {
+	coloredLogo := logo
+	if !globalNoColor {
+		// Add cyan color to the logo
+		coloredLogo = fmt.Sprintf("\033[36m%s\033[0m", logo)
+	}
+
+	// Custom template that avoids infinite recursion
+	return fmt.Sprintf(`%s
+
+{{with (or .Long .Short)}}{{. | trimTrailingWhitespaces}}
+
+{{end}}{{if or .Runnable .HasSubCommands}}Usage:{{if .Runnable}}
+  {{.UseLine}}{{end}}{{if .HasAvailableSubCommands}}
+  {{.CommandPath}} [command]{{end}}{{if gt (len .Aliases) 0}}
+
+Aliases:
+  {{.NameAndAliases}}{{end}}{{if .HasExample}}
+
+Examples:
+{{.Example}}{{end}}{{if .HasAvailableSubCommands}}{{$cmds := .Commands}}{{if eq (len .Groups) 0}}
+
+Available Commands:{{range $cmds}}{{if (or .IsAvailableCommand (eq .Name "help"))}}
+  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{else}}{{range $group := .Groups}}
+
+{{.Title}}{{range $cmds}}{{if (and (eq .GroupID $group.ID) (or .IsAvailableCommand (eq .Name "help")))}}
+  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}{{if not .AllChildCommandsHaveGroup}}
+
+Additional Commands:{{range $cmds}}{{if (and (eq .GroupID "") (or .IsAvailableCommand (eq .Name "help")))}}
+  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
+
+Flags:
+{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .HasAvailableInheritedFlags}}
+
+Global Flags:
+{{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if .HasHelpSubCommands}}
+
+Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
+  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
+
+Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
+{{end}}`, coloredLogo)
+}
+
 func newListCmd() *cobra.Command {
 	opts := &types.CollectorOptions{}
 
@@ -75,6 +131,9 @@ func newListCmd() *cobra.Command {
 			return runList(opts)
 		},
 	}
+
+	// Set custom usage template with logo for subcommand
+	cmd.SetUsageTemplate(getUsageTemplate())
 
 	// Add list-specific flags
 	cmd.Flags().IntVar(&opts.PID, "pid", 0, "Filter by process ID")
@@ -113,6 +172,9 @@ If a port is specified, only monitor connections to/from that port.`,
 		},
 	}
 
+	// Set custom usage template with logo for subcommand
+	cmd.SetUsageTemplate(getUsageTemplate())
+
 	// Add watch-specific flags
 	cmd.Flags().DurationVar(&opts.Interval, "interval", 500*time.Millisecond, "Check interval")
 	cmd.Flags().DurationVar(&opts.Duration, "duration", 0, "Maximum watch duration (0=infinite)")
@@ -138,6 +200,9 @@ func newMapCmd() *cobra.Command {
 			return runMap(opts, collectorOpts)
 		},
 	}
+
+	// Set custom usage template with logo for subcommand
+	cmd.SetUsageTemplate(getUsageTemplate())
 
 	// Add map-specific flags
 	cmd.Flags().StringVar((*string)(&opts.GraphFormat), "graph", "json", "Graph format: json|dot")
