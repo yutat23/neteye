@@ -5,7 +5,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // CSVRenderer handles CSV output formatting

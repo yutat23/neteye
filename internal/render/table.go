@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 	"github.com/olekukonko/tablewriter"
 )
 

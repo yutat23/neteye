@@ -1,4 +1,4 @@
-module github.com/example/neteye
+module github.com/yutat23/neteye
 
 go 1.22
 

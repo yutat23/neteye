@@ -5,7 +5,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // Collector defines the interface for collecting network connection information

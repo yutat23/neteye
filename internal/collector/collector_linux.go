@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // linuxCollector implements network connection collection for Linux

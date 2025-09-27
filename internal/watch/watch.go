@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/example/neteye/internal/collector"
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/internal/collector"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // Watcher monitors network connections for changes

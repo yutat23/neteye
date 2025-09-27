@@ -11,11 +11,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/example/neteye/internal/collector"
-	"github.com/example/neteye/internal/mapview"
-	"github.com/example/neteye/internal/render"
-	"github.com/example/neteye/internal/watch"
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/internal/collector"
+	"github.com/yutat23/neteye/internal/mapview"
+	"github.com/yutat23/neteye/internal/render"
+	"github.com/yutat23/neteye/internal/watch"
+	"github.com/yutat23/neteye/pkg/types"
 	"github.com/spf13/cobra"
 )
 

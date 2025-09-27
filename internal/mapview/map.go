@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // GraphBuilder builds connection graphs from network connections

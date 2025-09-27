@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // JSONRenderer handles JSON output formatting

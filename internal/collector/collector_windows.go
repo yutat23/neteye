@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/example/neteye/pkg/types"
+	"github.com/yutat23/neteye/pkg/types"
 )
 
 // windowsCollector implements network connection collection for Windows
